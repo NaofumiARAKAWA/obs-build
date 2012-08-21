@@ -67,9 +67,11 @@ sub init_helper_hashes {
       $ignore{$_} = 1;
       next;
     }
-    my @s = split(/[,:]/, $_);
+    my @s = split(/:/, $_,2);
     my $s = shift @s;
-    $ignore{"$s:$_"} = 1 for @s;
+    my $ignore_modules = shift @s;
+    my @ignore_modules = split(/,/, $ignore_modules);
+    $ignore{"$s:$_"} = 1 for @ignore_modules;
   }
   $config->{'ignoreh'} = \%ignore;
 
